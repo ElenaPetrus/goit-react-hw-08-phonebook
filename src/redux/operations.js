@@ -63,7 +63,7 @@
 // };
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as ContactsAPI from '../components/services/api';
+import * as ContactsAPI from '../services/api';
 
 const getContacts = createAsyncThunk(
   'contacts/getContacts',
