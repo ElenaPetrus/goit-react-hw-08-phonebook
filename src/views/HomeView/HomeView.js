@@ -18,8 +18,13 @@ const styles = {
 const HomeView = () => (
   <div style={styles.container}>
     <h1 style={styles.title}>
-      Зайди в "настройки" души. Открой папку "состояние", поставь галочку на
-      "счастлива" и забудь пароль!
+      Tap the Settings of the soul. Open the State, tap the Happy checkbox and
+      forget the password!{' '}
+      <p>
+        {' '}
+        Зайди в "настройки" души. Открой папку "состояние", поставь галочку на
+        "счастлива" и забудь пароль!
+      </p>
     </h1>
   </div>
 );

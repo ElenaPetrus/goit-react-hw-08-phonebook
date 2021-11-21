@@ -1,31 +1,92 @@
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
+import { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import AppBar from './components/AppBar/AppBar';
 import ContactsView from './views/ContactsView/ContactsView';
 import HomeView from './views/HomeView/HomeView';
 import RegisterView from './views/RegisterView/RegisterView';
 import LoginView from './views/LoginView/LoginView';
+import UploadView from './views/UploadView/UploadView';
 import Container from './components/Container/Container';
-// import { authOperations } from './redux/auth';
+import PrivateRoute from './routes/PrivateRoute';
+import PublicRoute from './routes/PublicRoute';
+import { authOperations, authSelectors } from './redux/auth';
+
+// const HomeView = lazy(() => import('./views/HomeView/HomeView'));
+// const RegisterView = lazy(() => import('./views/RegisterView/RegisterView'));
+// const LoginView = lazy(() => import('./views/LoginView/LoginView'));
+// const ContactsView = lazy(() => import('./views/ContactsView/ContactsView'));
 
 export default function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
 
-  // useEffect(() => {
-  //   dispatch(authOperations.fetchCurrentUser());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
 
   return (
     <Container>
-      <AppBar />
-
-      <Routes>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/register" element={<RegisterView />} />
-        <Route path="/login" element={<LoginView />} />
-        <Route path="/contacts" element={<ContactsView />} />
-      </Routes>
+      {isFetchingCurrentUser ? (
+        <h1>...loading...</h1>
+      ) : (
+        <>
+          <AppBar />
+          <div>
+            {/* <nav>
+              <ul>
+                <li>
+                  <NavLink to="/"></NavLink>
+                </li>
+                <li>
+                  <NavLink to="/register"></NavLink>
+                </li>
+                <li>
+                  <NavLink to="/login"></NavLink>
+                </li>
+                <li>
+                  <NavLink to="/contacts"></NavLink>
+                </li>
+              </ul>
+            </nav> */}
+            <Suspense fallback={<h1>...loading...</h1>}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<PublicRoute component={HomeView} />}
+                />
+                <Route
+                  path="/register"
+                  element={<PublicRoute component={RegisterView} restricted />}
+                />
+                <Route
+                  path="/login"
+                  element={
+                    <PublicRoute
+                      component={LoginView}
+                      redirectTo="/contacts"
+                      restricted
+                    />
+                  }
+                />
+                <Route
+                  path="/contacts"
+                  element={
+                    <PrivateRoute
+                      component={ContactsView}
+                      redirectTo="/login"
+                    />
+                  }
+                />
+                <Route
+                  path="/upload"
+                  element={<PrivateRoute component={UploadView} />}
+                />
+              </Routes>
+            </Suspense>
+          </div>
+        </>
+      )}
     </Container>
   );
 }
