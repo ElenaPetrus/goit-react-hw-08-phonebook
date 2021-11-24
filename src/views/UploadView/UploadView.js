@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { useState } from 'react';
+import Button from '@mui/material/Button';
 
 export default function UploadView() {
   const handleSubmit = e => {
@@ -17,7 +17,9 @@ export default function UploadView() {
   return (
     <form onSubmit={handleSubmit}>
       <input type="file" name="file" />
-      <button type="submit">Загрузить</button>
+      <Button variant="contained" size="small" type="submit">
+        Download{' '}
+      </Button>
     </form>
   );
 }

@@ -11,6 +11,7 @@ import Container from './components/Container/Container';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import { authOperations, authSelectors } from './redux/auth';
+import { ToastContainer } from 'react-toastify';
 
 // const HomeView = lazy(() => import('./views/HomeView/HomeView'));
 // const RegisterView = lazy(() => import('./views/RegisterView/RegisterView'));
@@ -33,22 +34,6 @@ export default function App() {
         <>
           <AppBar />
           <div>
-            {/* <nav>
-              <ul>
-                <li>
-                  <NavLink to="/"></NavLink>
-                </li>
-                <li>
-                  <NavLink to="/register"></NavLink>
-                </li>
-                <li>
-                  <NavLink to="/login"></NavLink>
-                </li>
-                <li>
-                  <NavLink to="/contacts"></NavLink>
-                </li>
-              </ul>
-            </nav> */}
             <Suspense fallback={<h1>...loading...</h1>}>
               <Routes>
                 <Route
@@ -84,6 +69,7 @@ export default function App() {
                 />
               </Routes>
             </Suspense>
+            <ToastContainer autoClose={2500} position="top-center" />
           </div>
         </>
       )}

@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 const styles = {
   link: {
@@ -14,12 +16,14 @@ const styles = {
 export default function AuthNav() {
   return (
     <div>
-      <NavLink to="/register" style={styles.link}>
-        Registration
-      </NavLink>
-      <NavLink to="/login" style={styles.link}>
-        Login
-      </NavLink>
+      <ButtonGroup variant="outlined" aria-label="outlined button group">
+        <NavLink to="/register" style={styles.link}>
+          <Button>Registration</Button>
+        </NavLink>
+        <NavLink to="/login" style={styles.link}>
+          <Button>Login</Button>
+        </NavLink>
+      </ButtonGroup>
     </div>
   );
 }

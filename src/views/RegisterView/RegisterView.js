@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authOperations } from '../../redux/auth';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Button from '@mui/material/Button';
 
 const styles = {
   form: {
@@ -34,6 +37,10 @@ export default function RegisterView() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (email === '' || password === '' || name === '') {
+      toast.info('Your contact details are required to make registration');
+      return;
+    }
     dispatch(authOperations.register({ name, email, password }));
     setName('');
     setEmail('');
@@ -42,7 +49,7 @@ export default function RegisterView() {
 
   return (
     <div>
-      <h1>Please fulfill the form for registration</h1>
+      <h2>Please fulfill the form for registration</h2>
 
       <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
         <label style={styles.label}>
@@ -70,7 +77,9 @@ export default function RegisterView() {
           />
         </label>
 
-        <button type="submit">Register</button>
+        <Button variant="contained" size="small" type="submit">
+          Register
+        </Button>
       </form>
     </div>
   );

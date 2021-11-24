@@ -3,6 +3,7 @@ import s from './ContactForm.module.css';
 import operations from '../../redux/operations';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllContacts, getTotalContactsCount } from '../../redux/selectors';
+import Button from '@mui/material/Button';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -85,7 +86,9 @@ export default function ContactForm() {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Add contact</button>
+        <Button variant="contained" size="small" type="submit">
+          Add contact{' '}
+        </Button>
       </form>
     </>
   );

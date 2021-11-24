@@ -4,6 +4,8 @@ import { Loader } from '../Loader/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import operations from '../../redux/operations';
 import { getVisibleContacts, getLoading } from '../../redux/selectors';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function ContactList() {
   const visibleContacts = useSelector(getVisibleContacts);
@@ -22,12 +24,14 @@ function ContactList() {
           <li key={id} className={s.item}>
             <span className={s.text}>{name}</span>
             <span className={s.text}>{number}</span>
-            <button
+            <Button
+              variant="outlined"
+              startIcon={<DeleteIcon />}
               type="button"
               onClick={() => dispatch(operations.deleteContact(id))}
             >
               Удалить
-            </button>
+            </Button>
           </li>
         ))}
       </ul>

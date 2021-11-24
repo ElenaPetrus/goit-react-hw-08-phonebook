@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authOperations } from '../../redux/auth';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Button from '@mui/material/Button';
 
 const styles = {
   form: {
@@ -31,6 +34,10 @@ export default function LoginView() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (email === '' || password === '') {
+      toast.info('Please type your email and password');
+      return;
+    }
     dispatch(authOperations.logIn({ email, password }));
     setEmail('');
     setPassword('');
@@ -38,7 +45,7 @@ export default function LoginView() {
 
   return (
     <div>
-      <h1>Data to log in</h1>
+      <h2>Data to log in</h2>
 
       <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
         <label style={styles.label}>
@@ -61,7 +68,9 @@ export default function LoginView() {
           />
         </label>
 
-        <button type="submit">Let's go</button>
+        <Button variant="contained" size="small" type="submit">
+          Let's go
+        </Button>
       </form>
     </div>
   );

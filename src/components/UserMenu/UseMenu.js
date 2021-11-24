@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelectors, authOperations } from '../../redux/auth';
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
 const styles = {
   container: {
@@ -10,6 +12,7 @@ const styles = {
   name: {
     fontWeight: 700,
     marginRight: 12,
+    color: '#1782d2',
   },
 };
 
@@ -19,9 +22,14 @@ export default function UserMenu() {
   return (
     <div style={styles.container}>
       <span style={styles.name}>Wellcome, {name} </span>
-      <button type="button" onClick={() => dispatch(authOperations.logOut())}>
+      <Button
+        variant="contained"
+        endIcon={<SendIcon />}
+        type="button"
+        onClick={() => dispatch(authOperations.logOut())}
+      >
         The exit is always there
-      </button>
+      </Button>
     </div>
   );
 }

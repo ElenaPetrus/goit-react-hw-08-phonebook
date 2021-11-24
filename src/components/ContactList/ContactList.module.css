@@ -6,7 +6,8 @@ ul {
   align-items: center;
   justify-content: space-between;
   padding: 5px;
-  border: 1px solid black;
+  border: 1px solid #1782d2;
+  border-radius: 5px;
   margin-top: 5px;
 }
 
